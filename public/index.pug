@@ -1,8 +1,16 @@
-doctype
-html(lang="es")
-    head
-        meta(charset="UTF-8")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        title Document
-    body
-        h1 Hello World
+extends layouts/app.pug
+
+block content
+    div.container
+        div.mt-5
+            h1 Parser con TS
+        div.mt-3
+            button#btnOpen.btn.btn-primary Abrir
+            button#btnSave.btn.btn-success.ml-3 Guardar
+            button.btn.btn-danger.ml-3#btnDelete Borrar todo
+            input#file-input.invisible(type="file")
+        div.mt-3
+            form
+                textarea#txt.form-control(rows="15", name="txt")
+        div.mt-3.row.justify-content-end
+            button.btn.btn-primary.mr-3 Compilar
