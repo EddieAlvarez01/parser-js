@@ -10,7 +10,7 @@ block content
             button.btn.btn-danger.ml-3#btnDelete Borrar todo
             input#file-input.invisible(type="file")
         div.mt-3
-            form
+            form#formTxt(action="http://localhost:4500/parser", method="post")
                 textarea#txt.form-control(rows="15", name="txt")
         div.mt-3.row.justify-content-end
-            button.btn.btn-primary.mr-3 Compilar
+            button#btnCompile.btn.btn-primary.mr-3 Compilar

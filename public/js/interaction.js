@@ -13,12 +13,17 @@ const btnDelete = document.querySelector('#btnDelete');
 const btnOpen = document.querySelector('#btnOpen');
 const fileInput = document.querySelector('#file-input');
 const btnSave = document.querySelector('#btnSave');
+const btnCompile = document.querySelector('#btnCompile');
+const formTxt = document.querySelector('#formTxt');
 
 //LISTENERS
 btnDelete.addEventListener('click', DeleteText);
 btnOpen.addEventListener('click', OpenTxt);
 fileInput.addEventListener('change', fileSelected);
 btnSave.addEventListener('click', saveText);
+btnCompile.addEventListener('click', compile);
+formTxt.addEventListener('submit', formSubmit);
+
 
 //DELETE TEXT
 function DeleteText() {
@@ -56,3 +61,15 @@ function saveText() {
     download.download = 'code.txt';
     download.click();
 }
+
+//COMPILE TEXT
+function compile() {
+    console.log('onclikc');
+    formTxt.submit();
+}
+
+//FORM
+function formSubmit(e) {
+    console.log('Submit');
+    e.preventDefault();
+} 
