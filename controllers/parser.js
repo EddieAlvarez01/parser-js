@@ -1,24 +1,46 @@
 const parser = require('../analysis/parser');
 
 const controller = {
-    compile: (req, res) => {
+    index: (req, res) => {
+        res.render('index', {
+            data: req.data
+        });
+    },
+
+    compile: (req, res, next) => {
         const {txt} = req.body;
-        console.log(txt);
         if (txt === "" || txt === undefined) {
-            return res.render('index', {
-                type: 'error',
-                message: 'Empty string'
-            });
+            req.data = {
+                status: 'error',
+                message: 'No se ha proveido ningún texto' 
+            };
+            return next();
         }
         try{
-            const result = parser(txt);    //JISON
-            console.log(result);
-            return res.render('index');
+            parser(txt);    //JISON
+            req.data = {
+                status: 'success',
+                message: 'Compilado correctamente' 
+            };
+            return next();
         }catch(error){
             console.log(error);
+            req.data = {
+                status: 'error',
+                message: parseErrors(error.hash)
+            };
+            return next();
         }
-        res.render('index');
     }
 };
+
+//CONVERT JISON ERRORS TO TEXT 
+function parseErrors(hash){
+    let text = `Error '${hash.text}' token ${hash.token} en la linea ${hash.line} se esperaba`;
+    hash.expected.forEach(item => {
+        text += ` ${item}`;
+    });
+    return text;
+}
 
 module.exports = controller;

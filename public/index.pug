@@ -14,3 +14,8 @@ block content
                 textarea#txt.form-control(rows="15", name="txt")
         div.mt-3.row.justify-content-end
             button#btnCompile.btn.btn-primary.mr-3 Compilar
+        if data != undefined
+            if data.status === 'error' 
+                div.mt-3.alert.alert-danger(role="alert") #{data.message}
+            else
+                div.mt-3.alert.alert-success(role="alert") #{data.message}

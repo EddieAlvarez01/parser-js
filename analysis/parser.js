@@ -27,7 +27,7 @@ const grammar = {
     },
 
     "bnf": {
-        "expressions" :[[ "DECLARATION EOF",   "print($1); return $1;"  ]],
+        "expressions" :[[ "DECLARATION EOF",   "return $1;"  ]],
 
         "DECLARATION": [["VAR IDENTIFIER SEMICOLON", ""]]
     }

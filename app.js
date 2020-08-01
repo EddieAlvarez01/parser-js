@@ -15,10 +15,6 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
 //ROUTES
-app.get('/', (req, res) => {
-    res.render('index');
-});
-
 app.use(require('./routes/parser'));
 
 module.exports = app;

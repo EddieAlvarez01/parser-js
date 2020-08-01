@@ -4,6 +4,7 @@ const controller = require('../controllers/parser');
 const router = Router();
 
 //PARSER ROUTES
-router.post('/parser', controller.compile);
+router.get('/', controller.index);
+router.post('/parser', controller.compile, controller.index);
 
 module.exports = router;
