@@ -16,6 +16,7 @@ const grammar = {
             ["\\(", "return 'LPAREN';"],
             ["\\)", "return 'RPAREN';"],
             [";", "return 'SEMICOLON';"],
+            ["\\.", "return 'POINT';"],
             ["\\+", "return 'PLUSSIGN';"],
             ["-", "return 'MINUSSIGN';"],
             ["\\*", "return 'PORSIGN';"],
@@ -26,10 +27,35 @@ const grammar = {
         ]
     },
 
-    "bnf": {
-        "expressions" :[[ "DECLARATION EOF",   "return $1;"  ]],
+    "operators": [
+        ["left", "PLUSSIGN", "MINUSSIGN"],
+        ["left", "PORSIGN", "DIVISIONSIGN"]
+    ],
 
-        "DECLARATION": [["VAR IDENTIFIER SEMICOLON", ""]]
+    "bnf": {
+        "expressions" :[[ "LSENTENCES EOF",   "return $1;"  ]],
+
+        "LSENTENCES": [["LSENTENCES SENTENCES", ""],
+                        ["SENTENCES", ""]],
+
+        "SENTENCES": [["DECLARATION", ""],
+                    ["PRINT", ""]],
+
+        "DECLARATION": [["VAR IDENTIFIER ASSIGNMENT", ""]],
+
+        "ASSIGNMENT": [["SEMICOLON", ""],
+                        ["EQUAL EXP SEMICOLON", ""]],
+
+        "PRINT": [["CONSOLE POINT LOG LPAREN EXP RPAREN SEMICOLON", ""]],
+        
+        "EXP": [["EXP PLUSSIGN EXP", ""],
+                ["EXP MINUSSIGN EXP", ""],
+                ["EXP PORSIGN EXP", ""],
+                ["EXP DIVISIONSIGN EXP", ""],
+                ["LPAREN EXP RPAREN", ""],
+                ["NUMBER", ""],
+                ["IDENTIFIER", ""],
+                ["CHAIN", ""]]
     }
 };
 

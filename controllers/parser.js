@@ -24,7 +24,6 @@ const controller = {
             };
             return next();
         }catch(error){
-            console.log(error);
             req.data = {
                 status: 'error',
                 message: parseErrors(error.hash)
