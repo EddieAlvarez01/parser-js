@@ -17,13 +17,15 @@ const controller = {
             return next();
         }
         try{
-            parser(txt);    //JISON
+            const result = parser.parse(txt);   //JISON
+            console.log(result.childs[0].childs[0]);
             req.data = {
                 status: 'success',
                 message: 'Compilado correctamente' 
             };
             return next();
         }catch(error){
+            console.log(error);
             req.data = {
                 status: 'error',
                 message: parseErrors(error.hash)
