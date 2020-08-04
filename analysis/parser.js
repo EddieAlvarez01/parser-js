@@ -77,7 +77,7 @@ var parser = {trace: function trace () { },
 yy: {},
 symbols_: {"error":2,"expressions":3,"LSENTENCES":4,"EOF":5,"SENTENCES":6,"DECLARATION":7,"PRINT":8,"VAR":9,"IDENTIFIER":10,"ASSIGNMENT":11,"SEMICOLON":12,"EQUAL":13,"EXP":14,"CONSOLE":15,"POINT":16,"LOG":17,"LPAREN":18,"RPAREN":19,"PLUSSIGN":20,"MINUSSIGN":21,"PORSIGN":22,"DIVISIONSIGN":23,"NUMBER":24,"CHAIN":25,"$accept":0,"$end":1},
 terminals_: {2:"error",5:"EOF",9:"VAR",10:"IDENTIFIER",12:"SEMICOLON",13:"EQUAL",15:"CONSOLE",16:"POINT",17:"LOG",18:"LPAREN",19:"RPAREN",20:"PLUSSIGN",21:"MINUSSIGN",22:"PORSIGN",23:"DIVISIONSIGN",24:"NUMBER",25:"CHAIN"},
-productions_: [0,[3,2],[4,2],[4,1],[6,1],[6,1],[7,3],[11,1],[11,3],[8,6],[14,3],[14,3],[14,3],[14,3],[14,3],[14,1],[14,1],[14,1]],
+productions_: [0,[3,2],[4,2],[4,1],[6,1],[6,1],[7,3],[11,1],[11,3],[8,7],[14,3],[14,3],[14,3],[14,3],[14,3],[14,1],[14,1],[14,1]],
 performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* action[1] */, $$ /* vstack */, _$ /* lstack */) {
 /* this == yyval */
 
@@ -90,32 +90,53 @@ case 2:
  this.$ = $$[$0-1]; this.$.Add($$[$0]); 
 break;
 case 3:
- this.$ = new ParserNode(0, 'sentences', 'sentences'); this.$.Add($$[$0]); 
+ this.$ = new ParserNode(0, util.operation.SENTENCES, util.operation.SENTENCES); this.$.Add($$[$0]); 
 break;
 case 4:
  this.$ = $$[$0]; 
 break;
-case 5: case 9:
-  
+case 5:
+ this.$ = new ParserNode(0, util.operation.PRINT, util.operation.PRINT); this.$.Add($$[$0]); 
 break;
 case 6:
- this.$ = new ParserNode(0, 'declaration', $$[$0-1]); if($$[$0] != null){ this.$.Add($$[$0]); } 
+ this.$ = new ParserNode(0, util.operation.DECLARATION, $$[$0-1]); if($$[$0] != null){ this.$.Add($$[$0]); } 
 break;
 case 7:
  this.$ = null; 
 break;
 case 8:
- this.$ = new ParserNode(0, 'exp', 'exp'); this.$.Add($$[$0-1]); 
+ this.$ = new ParserNode(0, util.operation.EXP, util.operation.EXP); this.$.Add($$[$0-1]); 
 break;
-case 10: case 11: case 12: case 13: case 14:
- 
+case 9:
+ this.$ = new ParserNode(0, util.operation.EXP, util.operation.EXP); this.$.Add($$[$0-2]); 
+break;
+case 10:
+ this.$ = new ParserNode(0, util.operation.SUM, util.operation.SUM); this.$.Add($$[$0-2]); this.$.Add($$[$0]); 
+break;
+case 11:
+ this.$ = new ParserNode(0, util.operation.SUBSTRACTION, util.operation.SUBSTRACTION); this.$.Add($$[$0-2]); this.$.Add($$[$0]); 
+break;
+case 12:
+ this.$ = new ParserNode(0, util.operation.MULTIPLICATION, util.operation.MULTIPLICATION); this.$.Add($$[$0-2]); this.$.Add($$[$0]); 
+break;
+case 13:
+ this.$ = new ParserNode(0, util.operation.DIVISION, util.operation.DIVISION); this.$.Add($$[$0-2]); this.$.Add($$[$0]); 
+break;
+case 14:
+ this.$ = $$[$0-1]; 
+break;
+case 15:
+ this.$ = new ParserNode(0, util.types.NUMBER, Number($$[$0])); 
+break;
+case 16:
+ this.$ = new ParserNode(0, 'variable', $$[$0]); 
 break;
 case 17:
- this.$ = new ParserNode(0, util.types.STRING, $$[$0]); 
+ this.$ = new ParserNode(0, util.types.STRING, $$[$0].substring(1, $$[$0].length)); 
 break;
 }
 },
-table: [{3:1,4:2,6:3,7:4,8:5,9:$V0,15:$V1},{1:[3]},{5:[1,8],6:9,7:4,8:5,9:$V0,15:$V1},o($V2,[2,3]),o($V2,[2,4]),o($V2,[2,5]),{10:[1,10]},{16:[1,11]},{1:[2,1]},o($V2,[2,2]),{11:12,12:[1,13],13:[1,14]},{17:[1,15]},o($V2,[2,6]),o($V2,[2,7]),{10:$V3,14:16,18:$V4,24:$V5,25:$V6},{18:[1,21]},{12:[1,22],20:$V7,21:$V8,22:$V9,23:$Va},{10:$V3,14:27,18:$V4,24:$V5,25:$V6},o($Vb,[2,15]),o($Vb,[2,16]),o($Vb,[2,17]),{10:$V3,14:28,18:$V4,24:$V5,25:$V6},o($V2,[2,8]),{10:$V3,14:29,18:$V4,24:$V5,25:$V6},{10:$V3,14:30,18:$V4,24:$V5,25:$V6},{10:$V3,14:31,18:$V4,24:$V5,25:$V6},{10:$V3,14:32,18:$V4,24:$V5,25:$V6},{19:[1,33],20:$V7,21:$V8,22:$V9,23:$Va},{19:[1,34],20:$V7,21:$V8,22:$V9,23:$Va},o($Vc,[2,10],{22:$V9,23:$Va}),o($Vc,[2,11],{22:$V9,23:$Va}),o($Vb,[2,12]),o($Vb,[2,13]),o($Vb,[2,14]),o($V2,[2,9])],
+table: [{3:1,4:2,6:3,7:4,8:5,9:$V0,15:$V1},{1:[3]},{5:[1,8],6:9,7:4,8:5,9:$V0,15:$V1},o($V2,[2,3]),o($V2,[2,4]),o($V2,[2,5]),{10:[1,10]},{16:[1,11]},{1:[2,1]},o($V2,[2,2]),{11:12,12:[1,13],13:[1,14]},{17:[1,15]},o($V2,[2,6]),o($V2,[2,7]),{10:$V3,14:16,18:$V4,24:$V5,25:$V6},{18:[1,21]},{12:[1,22],20:$V7,21:$V8,22:$V9,23:$Va},{10:$V3,14:27,18:$V4,24:$V5,25:$V6},o($Vb,[2,15]),o($Vb,[2,16]),o($Vb,[2,17]),{10:$V3,14:28,18:$V4,24:$V5,25:$V6},o($V2,[2,8]),{10:$V3,14:29,18:$V4,24:$V5,25:$V6},{10:$V3,14:30,18:$V4,24:$V5,25:$V6},{10:$V3,14:31,18:$V4,24:$V5,25:$V6},{10:$V3,14:32,18:$V4,24:$V5,25:$V6},{19:[1,33],20:$V7,21:$V8,22:$V9,23:$Va},{19:[1,34],20:$V7,21:$V8,22:$V9,23:$Va},o($Vc,[2,10],{22:$V9,23:$Va}),o($Vc,[2,11],{22:$V9,23:$Va}),o($Vb,[2,12]),o($Vb,[2,13]),o($Vb,[2,14]),{12:[1,35]},o($V2,[2,9])],
 defaultActions: {8:[2,1]},
 parseError: function parseError (str, hash) {
     if (hash.recoverable) {

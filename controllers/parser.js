@@ -18,7 +18,7 @@ const controller = {
         }
         try{
             const result = parser.parse(txt);   //JISON
-            console.log(result.childs[0].childs[0]);
+            console.log(result);
             req.data = {
                 status: 'success',
                 message: 'Compilado correctamente' 

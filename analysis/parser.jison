@@ -42,28 +42,28 @@ expressions
 
 LSENTENCES
     : LSENTENCES SENTENCES { $$ = $1; $$.Add($2); }
-    |SENTENCES  { $$ = new ParserNode(0, 'sentences', 'sentences'); $$.Add($1); };
+    |SENTENCES  { $$ = new ParserNode(0, util.operation.SENTENCES, util.operation.SENTENCES); $$.Add($1); };
 
 SENTENCES
     : DECLARATION { $$ = $1; }
-    | PRINT {  };
+    | PRINT { $$ = new ParserNode(0, util.operation.PRINT, util.operation.PRINT); $$.Add($1); };
 
 DECLARATION
-    : VAR IDENTIFIER ASSIGNMENT { $$ = new ParserNode(0, 'declaration', $2); if($3 != null){ $$.Add($3); } };
+    : VAR IDENTIFIER ASSIGNMENT { $$ = new ParserNode(0, util.operation.DECLARATION, $2); if($3 != null){ $$.Add($3); } };
 
 ASSIGNMENT
     : SEMICOLON { $$ = null; }
-    | EQUAL EXP SEMICOLON { $$ = new ParserNode(0, 'exp', 'exp'); $$.Add($2); };
+    | EQUAL EXP SEMICOLON { $$ = new ParserNode(0, util.operation.EXP, util.operation.EXP); $$.Add($2); };
 
 PRINT
-    : CONSOLE POINT LOG LPAREN EXP RPAREN {  };
+    : CONSOLE POINT LOG LPAREN EXP RPAREN SEMICOLON { $$ = new ParserNode(0, util.operation.EXP, util.operation.EXP); $$.Add($5); };
 
 EXP
-    : EXP PLUSSIGN EXP { }
-    | EXP MINUSSIGN EXP { }
-    | EXP PORSIGN EXP { }
-    | EXP DIVISIONSIGN EXP { }
-    | LPAREN EXP RPAREN { }
-    | NUMBER {}
-    | IDENTIFIER {}
-    | CHAIN { $$ = new ParserNode(0, util.types.STRING, $1); };
+    : EXP PLUSSIGN EXP { $$ = new ParserNode(0, util.operation.SUM, util.operation.SUM); $$.Add($1); $$.Add($3); }
+    | EXP MINUSSIGN EXP { $$ = new ParserNode(0, util.operation.SUBSTRACTION, util.operation.SUBSTRACTION); $$.Add($1); $$.Add($3); }
+    | EXP PORSIGN EXP { $$ = new ParserNode(0, util.operation.MULTIPLICATION, util.operation.MULTIPLICATION); $$.Add($1); $$.Add($3); }
+    | EXP DIVISIONSIGN EXP { $$ = new ParserNode(0, util.operation.DIVISION, util.operation.DIVISION); $$.Add($1); $$.Add($3); }
+    | LPAREN EXP RPAREN { $$ = $2; }
+    | NUMBER { $$ = new ParserNode(0, util.types.NUMBER, Number($1)); }
+    | IDENTIFIER { $$ = new ParserNode(0, 'variable', $1); }
+    | CHAIN { $$ = new ParserNode(0, util.types.STRING, $1.substring(1, $1.length)); };
