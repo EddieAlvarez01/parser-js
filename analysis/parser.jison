@@ -65,5 +65,5 @@ EXP
     | EXP DIVISIONSIGN EXP { $$ = new ParserNode(0, util.operation.DIVISION, util.operation.DIVISION); $$.Add($1); $$.Add($3); }
     | LPAREN EXP RPAREN { $$ = $2; }
     | NUMBER { $$ = new ParserNode(0, util.types.NUMBER, Number($1)); }
-    | IDENTIFIER { $$ = new ParserNode(0, 'variable', $1); }
+    | IDENTIFIER { $$ = new ParserNode(0, util.types.VARIABLE, $1); }
     | CHAIN { $$ = new ParserNode(0, util.types.STRING, $1.substring(1, $1.length)); };

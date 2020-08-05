@@ -1,7 +1,8 @@
 module.exports = {
     types: {
         NUMBER: 'number',
-        STRING: 'string'
+        STRING: 'string',
+        VARIABLE: 'variable'
     },
     operation: {
         SUM: 'sum',
