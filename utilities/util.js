@@ -2,7 +2,8 @@ module.exports = {
     types: {
         NUMBER: 'number',
         STRING: 'string',
-        VARIABLE: 'variable'
+        VARIABLE: 'variable',
+        UNDEFINED: 'undefined'
     },
     operation: {
         SUM: 'sum',

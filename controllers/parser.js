@@ -3,6 +3,8 @@ const util = require('../utilities/util');
 const Declaration = require('../models/Declaration');
 const Operation = require('../models/Operation');
 const Print = require('../models/Print');
+const SymbolTable = require('../models/SymbolTable');
+const Error = require('../models/Error');
 
 const controller = {
     index: (req, res) => {
@@ -23,7 +25,7 @@ const controller = {
         try{
             const root = parser.parse(txt);   //JISON
             const instructions = MapInstruccions(root);
-            console.log(instructions);
+            ExecuteCode(instructions);
             req.data = {
                 status: 'success',
                 message: 'Compilado correctamente' 
@@ -102,6 +104,22 @@ function ResolveExpression(node) {
         default:
             return Operation.NewOperationValue(util.types.VARIABLE, node.value);
     }
+}
+
+//EXECUTE CODE INSTRUCTION BY INSTRUCTION
+function ExecuteCode(instructions) {
+    
+    //GLOBAL SYMBOL TABLE
+    const st = new SymbolTable();
+
+    for (var item of instructions){
+        const result = item.execute(st);
+        if (result instanceof Error){
+            console.log(result.value);
+            return;
+        }
+    }
+    console.log(st);
 }
 
 module.exports = controller;
