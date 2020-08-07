@@ -29,8 +29,8 @@ class Operation {
         let rightOperation;
         switch(this.type){
             case util.operation.SUM:
-                leftOperation = this.leftOperation.execute();
-                rightOperation = this.rightOperation.execute();
+                leftOperation = this.leftOperation.execute(st);
+                rightOperation = this.rightOperation.execute(st);
                 if (leftOperation instanceof Error) {
                     return leftOperation
                 }
@@ -42,8 +42,8 @@ class Operation {
                 }
                 return Operation.NewOperationValue(util.types.NUMBER, leftOperation.value + rightOperation.value);
             case util.operation.SUBSTRACTION:
-                leftOperation = this.leftOperation.execute();
-                rightOperation = this.rightOperation.execute();
+                leftOperation = this.leftOperation.execute(st);
+                rightOperation = this.rightOperation.execute(st);
                 if (leftOperation instanceof Error) {
                     return leftOperation
                 }
@@ -55,8 +55,8 @@ class Operation {
                 }
                 return new Error("you can't substract a type 'number' with a 'string'");
             case util.operation.MULTIPLICATION:
-                leftOperation = this.leftOperation.execute();
-                rightOperation = this.rightOperation.execute();
+                leftOperation = this.leftOperation.execute(st);
+                rightOperation = this.rightOperation.execute(st);
                 if (leftOperation instanceof Error) {
                     return leftOperation
                 }
@@ -68,8 +68,8 @@ class Operation {
                 }
                 return new Error("you can't multiply a type 'number' with a 'string'");
             case util.operation.DIVISION:
-                leftOperation = this.leftOperation.execute();
-                rightOperation = this.rightOperation.execute();
+                leftOperation = this.leftOperation.execute(st);
+                rightOperation = this.rightOperation.execute(st);
                 if (leftOperation instanceof Error) {
                     return leftOperation
                 }
