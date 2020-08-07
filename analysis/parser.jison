@@ -66,4 +66,4 @@ EXP
     | LPAREN EXP RPAREN { $$ = $2; }
     | NUMBER { $$ = new ParserNode(0, util.types.NUMBER, Number($1)); }
     | IDENTIFIER { $$ = new ParserNode(0, util.types.VARIABLE, $1); }
-    | CHAIN { $$ = new ParserNode(0, util.types.STRING, $1.substring(1, $1.length)); };
+    | CHAIN { $$ = new ParserNode(0, util.types.STRING, $1.substring(1, $1.length - 1)); };

@@ -129,10 +129,10 @@ case 15:
  this.$ = new ParserNode(0, util.types.NUMBER, Number($$[$0])); 
 break;
 case 16:
- this.$ = new ParserNode(0, 'variable', $$[$0]); 
+ this.$ = new ParserNode(0, util.types.VARIABLE, $$[$0]); 
 break;
 case 17:
- this.$ = new ParserNode(0, util.types.STRING, $$[$0].substring(1, $$[$0].length)); 
+ this.$ = new ParserNode(0, util.types.STRING, $$[$0].substring(1, $$[$0].length - 1)); 
 break;
 }
 },

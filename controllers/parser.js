@@ -25,10 +25,14 @@ const controller = {
         try{
             const root = parser.parse(txt);   //JISON
             const instructions = MapInstruccions(root);
-            ExecuteCode(instructions);
+            const output = ExecuteCode(instructions);
+            let message = '';
+            output.forEach(item => {
+                message += item + '\n';
+            });
             req.data = {
                 status: 'success',
-                message: 'Compilado correctamente' 
+                message: message 
             };
             return next();
         }catch(error){
@@ -111,15 +115,22 @@ function ExecuteCode(instructions) {
     
     //GLOBAL SYMBOL TABLE
     const st = new SymbolTable();
+    
+    //OUTPUT
+    const output = [];
 
     for (var item of instructions){
         const result = item.execute(st);
         if (result instanceof Error){
-            console.log(result.value);
-            return;
+            console.log(st);
+            output.push(result.value);
+            return output;
+        }
+        if (result !== null) {
+            output.push(result);
         }
     }
-    console.log(st);
+    return output;
 }
 
 module.exports = controller;

@@ -13,12 +13,11 @@ class SymbolTable {
 
     //RETURN SYMBOL(VARIABLE) OF THE SCOPE
     Get(id){
-        this.symbols.forEach(item => {
-            if (item.id == id){
-                return item;
-            }
-        });
-        return new Error(`The id ${id} not exist in the scope`);
+        const symbol = this.symbols.find(item => item.id === id);
+        if (symbol != undefined){
+            return symbol;
+        }
+        return new Error(`The id "${id}" not exist in the scope`);
     }
 
     //COPY ALL SYMBOLS IN THE NEW SCOPE
