@@ -5,6 +5,7 @@ const Operation = require('../models/Operation');
 const Print = require('../models/Print');
 const SymbolTable = require('../models/SymbolTable');
 const Error = require('../models/Error');
+const Reassignment = require('../models/Reassignment');
 
 const controller = {
     index: (req, res) => {
@@ -75,6 +76,8 @@ function RecognizeInstruction(node) {
             }
         case util.operation.PRINT:
             return new Print(ResolveExpression(node.childs[0].childs[0]));
+        case util.operation.REASSIGNMENT:
+            return new Reassignment(node.value, ResolveExpression(node.childs[0].childs[0]));
         default:
             return null;
     }

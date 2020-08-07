@@ -46,7 +46,8 @@ LSENTENCES
 
 SENTENCES
     : DECLARATION { $$ = $1; }
-    | PRINT { $$ = new ParserNode(0, util.operation.PRINT, util.operation.PRINT); $$.Add($1); };
+    | PRINT { $$ = new ParserNode(0, util.operation.PRINT, util.operation.PRINT); $$.Add($1); }
+    | REASSIGNMENT { $$ = $1; };
 
 DECLARATION
     : VAR IDENTIFIER ASSIGNMENT { $$ = new ParserNode(0, util.operation.DECLARATION, $2); if($3 != null){ $$.Add($3); } };
@@ -54,6 +55,9 @@ DECLARATION
 ASSIGNMENT
     : SEMICOLON { $$ = null; }
     | EQUAL EXP SEMICOLON { $$ = new ParserNode(0, util.operation.EXP, util.operation.EXP); $$.Add($2); };
+
+REASSIGNMENT
+    : IDENTIFIER EQUAL EXP SEMICOLON { const node = new ParserNode(0, util.operation.EXP, util.operation.EXP); $$ = new ParserNode(0, util.operation.REASSIGNMENT, $1); node.Add($3); $$.Add(node); };
 
 PRINT
     : CONSOLE POINT LOG LPAREN EXP RPAREN SEMICOLON { $$ = new ParserNode(0, util.operation.EXP, util.operation.EXP); $$.Add($5); };

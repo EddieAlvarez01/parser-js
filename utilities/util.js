@@ -13,6 +13,7 @@ module.exports = {
         EXP: 'exp',
         DECLARATION: 'declaration',
         SENTENCES: 'sentences',
-        PRINT: 'print'
+        PRINT: 'print',
+        REASSIGNMENT: 'reassignment'
     }
 };

@@ -72,12 +72,12 @@
   }
 */
 var parser = (function(){
-var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,6],$V1=[1,7],$V2=[5,9,15],$V3=[1,19],$V4=[1,17],$V5=[1,18],$V6=[1,20],$V7=[1,23],$V8=[1,24],$V9=[1,25],$Va=[1,26],$Vb=[12,19,20,21,22,23],$Vc=[12,19,20,21];
+var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,7],$V1=[1,9],$V2=[1,8],$V3=[5,10,11,16],$V4=[1,22],$V5=[1,20],$V6=[1,21],$V7=[1,23],$V8=[1,27],$V9=[1,28],$Va=[1,29],$Vb=[1,30],$Vc=[13,20,21,22,23,24],$Vd=[13,20,21,22];
 var parser = {trace: function trace () { },
 yy: {},
-symbols_: {"error":2,"expressions":3,"LSENTENCES":4,"EOF":5,"SENTENCES":6,"DECLARATION":7,"PRINT":8,"VAR":9,"IDENTIFIER":10,"ASSIGNMENT":11,"SEMICOLON":12,"EQUAL":13,"EXP":14,"CONSOLE":15,"POINT":16,"LOG":17,"LPAREN":18,"RPAREN":19,"PLUSSIGN":20,"MINUSSIGN":21,"PORSIGN":22,"DIVISIONSIGN":23,"NUMBER":24,"CHAIN":25,"$accept":0,"$end":1},
-terminals_: {2:"error",5:"EOF",9:"VAR",10:"IDENTIFIER",12:"SEMICOLON",13:"EQUAL",15:"CONSOLE",16:"POINT",17:"LOG",18:"LPAREN",19:"RPAREN",20:"PLUSSIGN",21:"MINUSSIGN",22:"PORSIGN",23:"DIVISIONSIGN",24:"NUMBER",25:"CHAIN"},
-productions_: [0,[3,2],[4,2],[4,1],[6,1],[6,1],[7,3],[11,1],[11,3],[8,7],[14,3],[14,3],[14,3],[14,3],[14,3],[14,1],[14,1],[14,1]],
+symbols_: {"error":2,"expressions":3,"LSENTENCES":4,"EOF":5,"SENTENCES":6,"DECLARATION":7,"PRINT":8,"REASSIGNMENT":9,"VAR":10,"IDENTIFIER":11,"ASSIGNMENT":12,"SEMICOLON":13,"EQUAL":14,"EXP":15,"CONSOLE":16,"POINT":17,"LOG":18,"LPAREN":19,"RPAREN":20,"PLUSSIGN":21,"MINUSSIGN":22,"PORSIGN":23,"DIVISIONSIGN":24,"NUMBER":25,"CHAIN":26,"$accept":0,"$end":1},
+terminals_: {2:"error",5:"EOF",10:"VAR",11:"IDENTIFIER",13:"SEMICOLON",14:"EQUAL",16:"CONSOLE",17:"POINT",18:"LOG",19:"LPAREN",20:"RPAREN",21:"PLUSSIGN",22:"MINUSSIGN",23:"PORSIGN",24:"DIVISIONSIGN",25:"NUMBER",26:"CHAIN"},
+productions_: [0,[3,2],[4,2],[4,1],[6,1],[6,1],[6,1],[7,3],[12,1],[12,3],[9,4],[8,7],[15,3],[15,3],[15,3],[15,3],[15,3],[15,1],[15,1],[15,1]],
 performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* action[1] */, $$ /* vstack */, _$ /* lstack */) {
 /* this == yyval */
 
@@ -92,52 +92,55 @@ break;
 case 3:
  this.$ = new ParserNode(0, util.operation.SENTENCES, util.operation.SENTENCES); this.$.Add($$[$0]); 
 break;
-case 4:
+case 4: case 6:
  this.$ = $$[$0]; 
 break;
 case 5:
  this.$ = new ParserNode(0, util.operation.PRINT, util.operation.PRINT); this.$.Add($$[$0]); 
 break;
-case 6:
+case 7:
  this.$ = new ParserNode(0, util.operation.DECLARATION, $$[$0-1]); if($$[$0] != null){ this.$.Add($$[$0]); } 
 break;
-case 7:
+case 8:
  this.$ = null; 
 break;
-case 8:
+case 9:
  this.$ = new ParserNode(0, util.operation.EXP, util.operation.EXP); this.$.Add($$[$0-1]); 
 break;
-case 9:
- this.$ = new ParserNode(0, util.operation.EXP, util.operation.EXP); this.$.Add($$[$0-2]); 
-break;
 case 10:
- this.$ = new ParserNode(0, util.operation.SUM, util.operation.SUM); this.$.Add($$[$0-2]); this.$.Add($$[$0]); 
+ const node = new ParserNode(0, util.operation.EXP, util.operation.EXP); this.$ = new ParserNode(0, util.operation.REASSIGNMENT, $$[$0-3]); node.Add($$[$0-1]); this.$.Add(node); 
 break;
 case 11:
- this.$ = new ParserNode(0, util.operation.SUBSTRACTION, util.operation.SUBSTRACTION); this.$.Add($$[$0-2]); this.$.Add($$[$0]); 
+ this.$ = new ParserNode(0, util.operation.EXP, util.operation.EXP); this.$.Add($$[$0-2]); 
 break;
 case 12:
- this.$ = new ParserNode(0, util.operation.MULTIPLICATION, util.operation.MULTIPLICATION); this.$.Add($$[$0-2]); this.$.Add($$[$0]); 
+ this.$ = new ParserNode(0, util.operation.SUM, util.operation.SUM); this.$.Add($$[$0-2]); this.$.Add($$[$0]); 
 break;
 case 13:
- this.$ = new ParserNode(0, util.operation.DIVISION, util.operation.DIVISION); this.$.Add($$[$0-2]); this.$.Add($$[$0]); 
+ this.$ = new ParserNode(0, util.operation.SUBSTRACTION, util.operation.SUBSTRACTION); this.$.Add($$[$0-2]); this.$.Add($$[$0]); 
 break;
 case 14:
- this.$ = $$[$0-1]; 
+ this.$ = new ParserNode(0, util.operation.MULTIPLICATION, util.operation.MULTIPLICATION); this.$.Add($$[$0-2]); this.$.Add($$[$0]); 
 break;
 case 15:
- this.$ = new ParserNode(0, util.types.NUMBER, Number($$[$0])); 
+ this.$ = new ParserNode(0, util.operation.DIVISION, util.operation.DIVISION); this.$.Add($$[$0-2]); this.$.Add($$[$0]); 
 break;
 case 16:
- this.$ = new ParserNode(0, util.types.VARIABLE, $$[$0]); 
+ this.$ = $$[$0-1]; 
 break;
 case 17:
+ this.$ = new ParserNode(0, util.types.NUMBER, Number($$[$0])); 
+break;
+case 18:
+ this.$ = new ParserNode(0, util.types.VARIABLE, $$[$0]); 
+break;
+case 19:
  this.$ = new ParserNode(0, util.types.STRING, $$[$0].substring(1, $$[$0].length - 1)); 
 break;
 }
 },
-table: [{3:1,4:2,6:3,7:4,8:5,9:$V0,15:$V1},{1:[3]},{5:[1,8],6:9,7:4,8:5,9:$V0,15:$V1},o($V2,[2,3]),o($V2,[2,4]),o($V2,[2,5]),{10:[1,10]},{16:[1,11]},{1:[2,1]},o($V2,[2,2]),{11:12,12:[1,13],13:[1,14]},{17:[1,15]},o($V2,[2,6]),o($V2,[2,7]),{10:$V3,14:16,18:$V4,24:$V5,25:$V6},{18:[1,21]},{12:[1,22],20:$V7,21:$V8,22:$V9,23:$Va},{10:$V3,14:27,18:$V4,24:$V5,25:$V6},o($Vb,[2,15]),o($Vb,[2,16]),o($Vb,[2,17]),{10:$V3,14:28,18:$V4,24:$V5,25:$V6},o($V2,[2,8]),{10:$V3,14:29,18:$V4,24:$V5,25:$V6},{10:$V3,14:30,18:$V4,24:$V5,25:$V6},{10:$V3,14:31,18:$V4,24:$V5,25:$V6},{10:$V3,14:32,18:$V4,24:$V5,25:$V6},{19:[1,33],20:$V7,21:$V8,22:$V9,23:$Va},{19:[1,34],20:$V7,21:$V8,22:$V9,23:$Va},o($Vc,[2,10],{22:$V9,23:$Va}),o($Vc,[2,11],{22:$V9,23:$Va}),o($Vb,[2,12]),o($Vb,[2,13]),o($Vb,[2,14]),{12:[1,35]},o($V2,[2,9])],
-defaultActions: {8:[2,1]},
+table: [{3:1,4:2,6:3,7:4,8:5,9:6,10:$V0,11:$V1,16:$V2},{1:[3]},{5:[1,10],6:11,7:4,8:5,9:6,10:$V0,11:$V1,16:$V2},o($V3,[2,3]),o($V3,[2,4]),o($V3,[2,5]),o($V3,[2,6]),{11:[1,12]},{17:[1,13]},{14:[1,14]},{1:[2,1]},o($V3,[2,2]),{12:15,13:[1,16],14:[1,17]},{18:[1,18]},{11:$V4,15:19,19:$V5,25:$V6,26:$V7},o($V3,[2,7]),o($V3,[2,8]),{11:$V4,15:24,19:$V5,25:$V6,26:$V7},{19:[1,25]},{13:[1,26],21:$V8,22:$V9,23:$Va,24:$Vb},{11:$V4,15:31,19:$V5,25:$V6,26:$V7},o($Vc,[2,17]),o($Vc,[2,18]),o($Vc,[2,19]),{13:[1,32],21:$V8,22:$V9,23:$Va,24:$Vb},{11:$V4,15:33,19:$V5,25:$V6,26:$V7},o($V3,[2,10]),{11:$V4,15:34,19:$V5,25:$V6,26:$V7},{11:$V4,15:35,19:$V5,25:$V6,26:$V7},{11:$V4,15:36,19:$V5,25:$V6,26:$V7},{11:$V4,15:37,19:$V5,25:$V6,26:$V7},{20:[1,38],21:$V8,22:$V9,23:$Va,24:$Vb},o($V3,[2,9]),{20:[1,39],21:$V8,22:$V9,23:$Va,24:$Vb},o($Vd,[2,12],{23:$Va,24:$Vb}),o($Vd,[2,13],{23:$Va,24:$Vb}),o($Vc,[2,14]),o($Vc,[2,15]),o($Vc,[2,16]),{13:[1,40]},o($V3,[2,11])],
+defaultActions: {10:[2,1]},
 parseError: function parseError (str, hash) {
     if (hash.recoverable) {
         this.trace(str);
@@ -617,37 +620,37 @@ var YYSTATE=YY_START;
 switch($avoiding_name_collisions) {
 case 0:/* skip whitespace */
 break;
-case 1:return 9;
+case 1:return 10;
 break;
-case 2:return 15;
+case 2:return 16;
 break;
-case 3:return 17;
+case 3:return 18;
 break;
-case 4:return 10;
+case 4:return 11;
 break;
-case 5:return 24;
+case 5:return 25;
 break;
-case 6:return 13;
+case 6:return 14;
 break;
-case 7:return 18;
+case 7:return 19;
 break;
-case 8:return 19;
+case 8:return 20;
 break;
-case 9:return 12;
+case 9:return 13;
 break;
-case 10:return 16;
+case 10:return 17;
 break;
-case 11:return 22;
+case 11:return 23;
 break;
-case 12:return 23;
+case 12:return 24;
 break;
-case 13:return 21;
+case 13:return 22;
 break;
-case 14:return 20;
+case 14:return 21;
 break;
-case 15:return 24;
+case 15:return 25;
 break;
-case 16:return 25;
+case 16:return 26;
 break;
 case 17:return 5;
 break;
