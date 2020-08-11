@@ -10,7 +10,8 @@ const Reassignment = require('../models/Reassignment');
 const controller = {
     index: (req, res) => {
         res.render('index', {
-            data: req.data
+            data: req.data,
+            graph: req.graph
         });
     },
 
@@ -31,10 +32,17 @@ const controller = {
             output.forEach(item => {
                 message += item + '\n';
             });
+
+            //GRAPH
+            const data = {};
+            establishHierarchy(root, data);
+            //const graph = util.graph(data);
+
             req.data = {
                 status: 'success',
                 message: message 
             };
+            req.graph = JSON.stringify(data);
             return next();
         }catch(error){
             console.log(error);
@@ -134,6 +142,18 @@ function ExecuteCode(instructions) {
         }
     }
     return output;
+}
+
+//BUILD A HIERARCHY FOR CHARTING
+function establishHierarchy(root, data){
+    data.name = String(root.value);
+    if (root.childs.length > 0){
+        data.children = [];
+        root.childs.forEach(item => {
+            data.children.push(establishHierarchy(item, {}));
+        });
+    }
+    return data;
 }
 
 module.exports = controller;
