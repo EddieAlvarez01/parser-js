@@ -114,13 +114,3 @@ if (divGraph != undefined) {
         .style("text-anchor", "middle")
         .text(d => d.data.name);
 }
-
-/*"M" + d.x + "," + d.y
-                                + "C" + d.x  + "," + (d.y + d.parent.y) / 2
-                                + " " + d.parent.x + "," + (d.y + d.parent.y) / 2
-                                + " " + d.parent.x + "," + d.parent.y; */
-
-/*"M" + d.y + "," + d.x
-         + "C" + (d.y + d.parent.y) / 2 + "," + d.x
-         + " " + (d.y + d.parent.y) / 2 + "," + d.parent.x
-         + " " + d.parent.y + "," + d.parent.x;*/
